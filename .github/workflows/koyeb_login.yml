@@ -2,8 +2,9 @@ name: Koyeb Auto Login
 
 on:
   schedule:
-    - cron: '0 11 * * 0'  # 每周日 UTC 时间 11:00 执行
+    - cron: '10 0 * * 5'  # 每周五 UTC 时间 10:00 执行
   workflow_dispatch:
+
 jobs:
   login:
     runs-on: ubuntu-latest
@@ -11,6 +12,9 @@ jobs:
     steps:
     - name: 📥 Checkout repository
       uses: actions/checkout@v4
+
+    - name: ⏳ Random delay (0–21600s)  # 随机 0–6 小时
+      run: sleep $((RANDOM % 21600))
 
     - name: 🛠️ Set up Python
       uses: actions/setup-python@v5
